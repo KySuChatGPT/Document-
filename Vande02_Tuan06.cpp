@@ -3,7 +3,7 @@
 #include <stdlib.h>
 struct Node
 {
-	float data; //c·c to·n h?ng ki?u s? th?c
+	float data; //c√°c to√°n h?ng ki?u s? th?c
 	Node *link;
 };
 struct stack {
@@ -17,7 +17,7 @@ void Init(stack& s){
 int Empty(stack s){
 	return s.top == NULL ? 1 : 0;
 }
-// ThÍm m?t ph?n t? v‡o stack
+// Th√™m m?t ph?n t? v√†o stack
 void Push(stack& s, float x){
 		Node *p;
 	p =new Node;
@@ -41,7 +41,7 @@ float Pop(stack& s){
 }
 void DocTu(char s[], char tu[], int&vt)
 {
-	//Kh?i t?o t? ban d?u ch? ch?a c·c kho?ng tr?ng
+	//Kh?i t?o t? ban d?u ch? ch?a c√°c kho?ng tr?ng
 	for(int i = 0; i<strlen(tu); i++)
 	tu[i]= ' ';
 	int i = 0;
@@ -82,22 +82,22 @@ float TinhBieuThuc(stack&s, char bieuThuc[])
 do
 {
 	DocTu(bieuThuc, t, i);//Trong chu?i bieuThuc, d?c
-	if(LaToanTu(t)) //N?u t l‡ m?t to·n t?
+	if(LaToanTu(t)) //N?u t l√† m?t to√°n t?
 	{
-	char toanTu = t[0]; //To·n t? ch? cÛ 1 k˝ t?
+	char toanTu = t[0]; //To√°n t? ch? c√≥ 1 k√Ω t?
 	float toanHang1 = Pop(s);
 	float toanHang2 = Pop(s);
 	kq = TinhToan(toanHang2, toanHang1, toanTu);
-	//th?c hi?n phÈp tÌnh
-	Push(s, kq); //tÌnh xong dua kq v‡o stack
+	//th?c hi?n ph√©p t√≠nh
+	Push(s, kq); //t√≠nh xong dua kq v√†o stack
 	}
-	else//t l‡ to·n h?ng
+	else//t l√† to√°n h?ng
 	{	
-	float toanHang = atof(t); //chuy?n th‡nh s? th?c
-	Push(s, toanHang); //dua to·n h?ng v‡o stack
+	float toanHang = atof(t); //chuy?n th√†nh s? th?c
+	Push(s, toanHang); //dua to√°n h?ng v√†o stack
 	}
 	i++;
-	}while(bieuThuc[i]!='#'); //Gi? s? quy u?c ë#í l‡ k˝ t?
+	}while(bieuThuc[i]!='#'); //Gi? s? quy u?c ‚Äò#‚Äô l√† k√Ω t?
 	return Pop(s);
 }
 
