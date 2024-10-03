@@ -1,0 +1,296 @@
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int partition(vector<int>& arr, int low, int high, int option) {
+    int pivot;
+    if (option == 1) {
+        int mid = low + (high - low) / 2;
+        pivot = arr[mid];
+        swap(arr[mid], arr[high]);  
+    } else if (option == 2) {
+        pivot = arr[high];
+    }
+    
+    int i = low - 1;
+    
+    for (int j = low; j < high; j++) {
+        if (arr[j] < pivot) {
+            i++;
+            swap(arr[i], arr[j]);
+        }
+    }
+    
+    swap(arr[i + 1], arr[high]); 
+    return i + 1;
+}
+
+void quickSort(vector<int>& arr, int low, int high, int option) {
+    if (low < high) {
+        int pi = partition(arr, low, high, option);
+        quickSort(arr, low, pi - 1, option);  
+        quickSort(arr, pi + 1, high, option); 
+    }
+}
+
+void SortElements(string filename, int k, int option) {
+    ifstream file(filename);  
+    vector<int> numbers;
+    int num;
+    
+    if (file.is_open()) {
+        while (file >> num) {  
+            numbers.push_back(num);
+        }
+        file.close();
+    } else {
+        cerr << "Unable to open file" << endl;
+        return;
+    }
+
+    quickSort(numbers, 0, numbers.size() - 1, option);
+
+    for (size_t i = 0; i < static_cast<size_t>(k) && i < numbers.size(); i++) {  
+        cout << numbers[i] << "\n";
+    }
+    cout << endl;
+}
+////////////////////////////////////////////////////////////////////???????????????????????????????????????????
+  #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+struct Student {
+    string ID;
+    string Name;
+    string Gender;
+    float Avg;
+};
+
+int partition(vector<Student>& students, int low, int high, int option) {
+    float pivot;
+    if (option == 1) {
+        int mid = low + (high - low) / 2;
+        pivot = students[mid].Avg;
+        swap(students[mid], students[high]);  // Move pivot to the end
+    } else if (option == 2) {
+        pivot = students[high].Avg;
+    }
+    
+    int i = low - 1;
+    
+    for (int j = low; j < high; j++) {
+        if (students[j].Avg < pivot) {
+            i++;
+            swap(students[i], students[j]);
+        }
+    }
+    
+    swap(students[i + 1], students[high]); 
+    return i + 1;
+}
+
+void quickSort(vector<Student>& students, int low, int high, int option) {
+    if (low < high) {
+        int pi = partition(students, low, high, option);
+        quickSort(students, low, pi - 1, option);  
+        quickSort(students, pi + 1, high, option); 
+    }
+}
+
+void SortElements(string filename, int k, int option) {
+    ifstream file(filename);  
+    vector<Student> students;
+    string line, token;
+    
+    if (file.is_open()) {
+        while (getline(file, line)) {  
+            stringstream ss(line);
+            Student student;
+            
+            getline(ss, student.ID, ',');
+            getline(ss, student.Name, ',');
+            getline(ss, student.Gender, ',');
+            getline(ss, token, ',');
+            student.Avg = stof(token);  
+            
+            students.push_back(student);
+        }
+        file.close();
+    } else {
+        cerr << "Unable to open file" << endl;
+        return;
+    }
+
+    quickSort(students, 0, students.size() - 1, option);
+
+
+    for (size_t i = 0; i < static_cast<size_t>(k) && i < students.size(); i++) {
+        cout << students[i].ID << " " << students[i].Name <<  " "
+             << students[i].Gender << " "  << students[i].Avg << endl;
+    }
+}
+////////////////////////////////////////////////////////////////////???????????????????????????????????????????
+#include <iostream>
+
+using namespace std;
+
+struct Node {
+    int data;
+    Node* pNext;
+};
+
+struct List {
+    Node* pHead;
+    Node* pTail;
+};
+
+void Init(List& list) {
+    list.pHead = nullptr;
+    list.pTail = nullptr;
+}
+
+void InsertFirst(List& list, int x) {
+    Node* p = new Node;
+    p->data = x;
+    p->pNext = list.pHead;
+
+    list.pHead = p;
+    if (list.pTail == nullptr) {
+        list.pTail = p;
+    }
+}
+
+void ShowFirst(List list) {
+    if (list.pHead == nullptr) {
+        cout << "Danh sach rong" << endl;
+    } else {
+        cout << list.pHead->data << endl;
+    }
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////
+#include <iostream>
+
+using namespace std;
+
+struct Node {
+    int data;
+    Node* pNext;
+};
+
+struct List {
+    Node* pHead;
+    Node* pTail;
+};
+
+void Init(List& list) {
+    list.pHead = nullptr;
+    list.pTail = nullptr;
+}
+
+void InsertLast(List& list, int x) {
+    Node* p = new Node;
+    p->data = x;
+    p->pNext = nullptr;
+
+    if (list.pHead == nullptr) {
+        list.pHead = p;
+        list.pTail = p;
+    } else {
+        list.pTail->pNext = p;
+        list.pTail = p;
+    }
+}
+
+void ShowLast(List list) {
+    if (list.pTail == nullptr) {
+        cout << "Danh sach rong" << endl;
+    } else {
+        cout << list.pTail->data << endl;
+    }
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+
+using namespace std;
+
+struct Node {
+    int data;
+    Node* pNext;
+};
+
+struct List {
+    Node* pHead;
+    Node* pTail;
+    
+    List() : pHead(nullptr), pTail(nullptr) {}  
+};
+
+void insertAtHead(List& list, int value) {
+    Node* newNode = new Node{value, nullptr};
+    if (list.pHead == nullptr) {
+        list.pHead = list.pTail = newNode;
+    } else {
+        newNode->pNext = list.pHead;
+        list.pHead = newNode;
+    }
+}
+
+void insertAtTail(List& list, int value) {
+    Node* newNode = new Node{value, nullptr};
+    if (list.pHead == nullptr) {
+        list.pHead = list.pTail = newNode;
+    } else {
+        list.pTail->pNext = newNode;
+        list.pTail = newNode;
+    }
+}
+
+List CreateLinkedListFromFile(const string& filename) {
+    List list;
+    ifstream file(filename);
+    string line;
+    
+    if (file.is_open()) {
+        while (getline(file, line)) {
+            stringstream ss(line);
+            int value, option;
+            char comma;
+
+            ss >> value >> comma >> option;
+            
+            if (option == 0) {
+                insertAtHead(list, value);  
+            } else if (option == -1) {
+                insertAtTail(list, value);  
+            }
+        }
+        file.close();
+    } else {
+        cerr << "Unable to open file" << endl;
+    }
+    
+    return list;
+}
+
+void ShowHead(const List& list, int k) {
+    Node* current = list.pHead;
+    int count = 0;
+    
+    while (current != nullptr && count < k) {
+        cout << current->data << " ";
+        current = current->pNext;
+        count++;
+    }
+    cout << endl;
+}
